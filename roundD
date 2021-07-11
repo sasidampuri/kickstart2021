@@ -1,5 +1,75 @@
-
+/*
 anyone who wanted solution of first 2 question do message me 
 on insta i will provde ans there
 but dnt forget to follow my github
-@beyounikk.18
+@beyounikk.18 */
+
+
+#include<iostream>
+#include<stdio.h>
+#include<cstdio>
+#include<stdlib.h>
+#include<vector>
+#include<string>
+#include<cstring>
+#include<cmath>
+#include<algorithm>
+#include<stack>
+#include<queue>
+#include<ctype.h>
+#include<map>
+#include<time.h>
+#include<set>
+#include<bitset>
+#include<sstream>
+using namespace std;
+ 
+//Kickstart Round A 2017 Problem A. Square Counting
+const int maxn=60;
+int T;
+long long R;
+long long C;
+long long ans;
+const int mod=1000000007;
+long long inv[10];
+long long pow_mod(long long a,long long b)
+{
+    long long s=1;
+    long long t=1;
+    while(b)
+    {
+        if(b&t)
+        {
+            s=(s*a)%mod;
+        }
+        a=(a*a)%mod;
+        b=b>>1;
+    }
+    return s;
+}
+int main()
+{
+//    freopen("input.txt","r",stdin);
+    freopen("A-large-practice.in","r",stdin);
+    freopen("A.txt","w",stdout);
+    scanf("%d",&T);
+    for(int i=1;i<10;i++)
+    {
+        inv[i]=pow_mod(i,mod-2)%mod;
+    }
+    for(int ca=1;ca<=T;ca++)
+    {
+        cin>>R>>C;
+        ans=0;
+        long long x=min(R,C)-1;
+        long long tmp0=((((R%mod*C%mod)%mod*(1+x)%mod)%mod*x)%mod*inv[2])%mod;
+        long long tmp1=((((((R+C)%mod*x)%mod*(x+1))%mod)*(2*x+1))%mod*inv[6])%mod;
+        long long tmp2=((((x*x)%mod*(x+1)%mod)*(x+1))%mod*inv[4])%mod;
+        long long tmp=((tmp0-tmp1+mod)%mod+tmp2)%mod;//in (a-b)%mod, need to use (a-b+mod)%mod, as a may < b after mod in previous actions
+        ans+=tmp;
+        ans%=mod;
+        printf("Case #%d: %lld\n",ca,ans);
+ 
+    }
+    return 0;
+}
